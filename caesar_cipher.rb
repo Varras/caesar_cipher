@@ -3,36 +3,31 @@ if development?
     require 'sinatra/reloader'
 end
 
-get '/' do
-    message = params["message"].to_i
-    
 
-    erb :index, :locals => {:number => number, 
-        :message => message }    
+ALPHABET_SIZE = 26
 
-end
-
-
-def check_guess(guess)
-    if params["guess"].to_i == guess
-        "You got it right! The secret number is #{guess}"
-        #background = "background-color:#A1D490"     
-    elsif params["guess"].to_i > guess
-        if params["guess"].to_i > (guess + 5)
-            "Way to high!"
-            #background = "background-color:#F0501A"
-        else
-            "Close, but too high!"
-           #background = "background-color:#D4A190"
-        end
-    elsif params["guess"].to_i < guess
-        if params["guess"].to_i <(guess - 5)
-            "Way to low!"
-            #background = "background-color:#F0501A"
-        else
-            "Close, but too low!"
-            #background = "background-color:#D4A190"
-        end
-        
+def caesar_cipher(string, shift)
+  shiftyArray = []
+  charLine = string.chars.map(&:ord)
+    #shift = @@steps
+    ALPHABET_SIZE.times do |shift|
+    shiftyArray << charLine.map do |c|
+      ((c + shift) < 123 ? (c + shift) : (c + shift) - 26).chr
     end
+    shiftyArray.join
+  end
+
+shiftyArray
 end
+
+get '/' do
+    steps = params["steps"].to_i
+    message = params['message']
+    output = caesar_cipher(message, steps)
+
+    erb :index, :locals => {:output => output, 
+    :message => message, :steps => steps }    
+
+end
+
+
