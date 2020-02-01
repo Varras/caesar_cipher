@@ -1,6 +1,6 @@
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" href="style.css">
+       <link rel="stylesheet" type="text/css" href="style.css">
         <title>Ceasar Cipher in Sinatra</title>
     </head>
     <body>
@@ -11,9 +11,9 @@
                     "What's your message?"
                     <input type='text' name='message' value='Write Your Message Here!' />
                     "How far do you want to shift the cipher?"
-                    <input type="number" name="steps" min="-26" max="26" step="1"
+                    <input type='number' name='steps' min='-26' max='26' step='1'
                     value="0" />
-                    <input type='submit' name='output' value='Submit' />
+                    <input type='submit' value='Submit' />
                 </form>
             <h2><%= output %></h2>
         </div>

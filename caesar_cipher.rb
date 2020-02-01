@@ -4,30 +4,32 @@ if development?
 end
 
 
-ALPHABET_SIZE = 26
 
-def caesar_cipher(string, shift)
-  shiftyArray = []
-  charLine = string.chars.map(&:ord)
-    #shift = @@steps
-    ALPHABET_SIZE.times do |shift|
-    shiftyArray << charLine.map do |c|
-      ((c + shift) < 123 ? (c + shift) : (c + shift) - 26).chr
-    end
-    shiftyArray.join
-  end
-
-shiftyArray
-end
 
 get '/' do
-    steps = params["steps"].to_i
-    message = params['message']
-    output = caesar_cipher(message, steps)
+    shift = params['steps'].to_i
+    text = params['message']
+    output = caesar_cipher(text, shift)
 
-    erb :index, :locals => {:output => output, 
-    :message => message, :steps => steps }    
+    erb :index, :locals => {:output => output }    
 
 end
 
 
+def alphabet?(letter)
+    ord = letter.ord
+    return (ord >= 65 && ord <= 90) || (ord >= 97 && ord <= 122)
+end
+
+def caesar_cipher(text, shift)
+    result = ''
+    text.split('').each do |letter|
+    pos = letter.ord + shift
+    if alphabet?(letter)
+        result += alphabet?(pos.chr) ? pos.chr : (pos - 26).chr
+    else 
+        result += letter
+    end
+end
+    return result
+end
