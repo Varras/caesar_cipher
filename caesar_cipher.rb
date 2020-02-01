@@ -3,12 +3,9 @@ if development?
     require 'sinatra/reloader'
 end
 
-
-
-
 get '/' do
+    text = params['message'] || ' '
     shift = params['steps'].to_i
-    text = params['message']
     output = caesar_cipher(text, shift)
 
     erb :index, :locals => {:output => output }    
@@ -22,8 +19,8 @@ def alphabet?(letter)
 end
 
 def caesar_cipher(text, shift)
-    result = ''
-    text.split('').each do |letter|
+    result = ' '
+    text.split(' ').each do |letter|
     pos = letter.ord + shift
     if alphabet?(letter)
         result += alphabet?(pos.chr) ? pos.chr : (pos - 26).chr
