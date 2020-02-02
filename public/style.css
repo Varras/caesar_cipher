@@ -10,8 +10,6 @@ body {
 	text-align: center;
 	padding: 252px 50px;
 	font-weight: 100;
-	grid-auto-columns: 200px 1fr;
-	grid-auto-rows: 1fr 1fr;
 	justify-items: center;
 }
 

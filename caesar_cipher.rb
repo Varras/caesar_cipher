@@ -19,8 +19,8 @@ def alphabet?(letter)
 end
 
 def caesar_cipher(text, shift)
-    result = ' '
-    text.split(' ').each do |letter|
+    result = ''
+    text.split('').each do |letter|
     pos = letter.ord + shift
     if alphabet?(letter)
         result += alphabet?(pos.chr) ? pos.chr : (pos - 26).chr
